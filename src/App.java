@@ -49,14 +49,18 @@ public class App {
                 new Book("Los juegos del hambre", "Suzanne Collins", 27.80));
         new Book("Crónica de una muerte anunciada", "Gabriel García Márquez", 29.50);
 
-        // Mostrar todos los libros
-        books.stream()
-                .forEach(book -> System.out.println(book));
+        // Mostrar todos los libros (forEach + Consumer)
+        // books.stream()
+        //         .forEach(book -> System.out.println(book));
 
         // Alternativa para mostrar todos los libros
         // books.stream()
-        //         .forEach(System.out::println);
+        // .forEach(System.out::println);
 
+        // Filtrar libros que cuesten más de $50 (filter + Predicate)
+        books.stream()
+                .filter(book -> book.getPrice() > 50)
+                .forEach(System.out::println);
     }
 
 }
