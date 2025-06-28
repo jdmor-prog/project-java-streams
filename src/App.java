@@ -1,5 +1,7 @@
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import models.Book;
 
@@ -50,17 +52,79 @@ public class App {
         new Book("Crónica de una muerte anunciada", "Gabriel García Márquez", 29.50);
 
         // Mostrar todos los libros (forEach + Consumer)
-        // books.stream()
-        //         .forEach(book -> System.out.println(book));
+        System.out.println("\n--- Mostrar todos los libros ---\n");
+        books.stream()
+                .forEach(book -> System.out.println(book));
 
         // Alternativa para mostrar todos los libros
-        // books.stream()
-        // .forEach(System.out::println);
+        System.out.println("\n--- Alternativa para mostrar todos los libros ---\n");
+        books.stream()
+                .forEach(System.out::println);
 
         // Filtrar libros que cuesten más de $50 (filter + Predicate)
+        System.out.println("\n--- Filtrar libros que cuesten más de $50 ---\n");
         books.stream()
                 .filter(book -> book.getPrice() > 50)
                 .forEach(System.out::println);
+
+        // Obtener solo los títulos en mayúsculas (map + Function)
+        System.out.println("\n--- Obtener solo los títulos en mayúsculas ---\n");
+        books.stream()
+                .map(book -> book.getTitle().toUpperCase())
+                .forEach(System.out::println);
+
+        // Recopilar libros baratos (collect + Predicate + Collectors)
+        System.out.println("\n--- Recopilar libros baratos ---\n");
+        List<Book> cheapBooks = books.stream()
+                .filter(book -> book.getPrice() < 50)
+                .collect(Collectors.toList());
+
+        cheapBooks.forEach(System.out::println);
+
+        // Obtener el precio total de todos los libros (reduce + BinaryOperator)
+        System.out.println("\n--- Obtener el precio total de todos los libros ---\n");
+        double totalPrice = books.stream()
+                .map(Book::getPrice)
+                .reduce(0.0, (a, b) -> a + b);
+
+        System.out.println("Total: $" + totalPrice);
+
+        // ¿Hay algún libro de “Robert C. Martin”? (anyMatch + Predicate)
+        System.out.println("\n--- ¿Hay algún libro de “Robert C. Martin”? ---\n");
+        boolean hasMartin = books.stream()
+                .anyMatch(book -> book.getAuthor().equals("Robert C. Martin"));
+
+        System.out.println("¿Hay libro de Martin? \n" + hasMartin);
+
+        // Eliminar duplicados por título (distinct + Comparator)
+        System.out.println("\n--- Eliminar duplicados por título ---\n");
+        List<String> titles = books.stream()
+                .map(Book::getTitle)
+                .distinct()
+                .collect(Collectors.toList());
+
+        titles.forEach(System.out::println);
+
+        // Limitar y saltar libros (limit + skip)
+        System.out.println("\n--- Limitar y saltar libros ---");
+        // Mostrar los dos primeros libros
+        System.out.println("\n--- Mostrar los dos primeros libros ---\n");
+        books.stream()
+                .limit(2)
+                .forEach(System.out::println);
+
+        // Omitir los dos primeros libros
+        System.out.println("\n--- Omitir los dos primeros libros ---\n");
+        books.stream()
+                .skip(2)
+                .forEach(System.out::println);
+
+        // Ordenar por precio (sorted + Comparator)
+        System.out.println("\n--- Ordenar por precio ---\n");
+        books.stream()
+                .sorted(Comparator.comparing(Book::getPrice))
+                .forEach(System.out::println);
+
     }
 
 }
