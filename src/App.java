@@ -47,8 +47,16 @@ public class App {
                 new Book("La ciudad y los perros", "Mario Vargas Llosa", 35.50),
                 new Book("El Alquimista", "Paulo Coelho", 29.99),
                 new Book("Los juegos del hambre", "Suzanne Collins", 27.80));
-                new Book("Crónica de una muerte anunciada", "Gabriel García Márquez", 29.50);
+        new Book("Crónica de una muerte anunciada", "Gabriel García Márquez", 29.50);
+
+        // Mostrar todos los libros
+        books.stream()
+                .forEach(book -> System.out.println(book));
+
+        // Alternativa para mostrar todos los libros
+        // books.stream()
+        //         .forEach(System.out::println);
+
     }
 
-    
 }
